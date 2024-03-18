@@ -32,7 +32,7 @@ use parent qw(Kernel::System::DynamicField::Driver::BaseReference);
 
 # OTOBO modules
 use Kernel::Language              qw(Translatable);
-use Kernel::System::VariableCheck qw(IsHashRefWithData);
+use Kernel::System::VariableCheck qw(IsArrayRefWithData IsHashRefWithData);
 
 our @ObjectDependencies = (
     'Kernel::Config',
@@ -315,7 +315,7 @@ sub SearchObjects {
     my %SearchParams;
     my $ConfigObject = $Kernel::OM->Get('Kernel::Config');
     if ( $ConfigObject->Get('Ticket::Type') ) {
-        if ( $DynamicFieldConfig->{Config}->{TicketType} ) {
+        if ( IsArrayRefWithData( $DynamicFieldConfig->{Config}->{TicketType} ) ) {
             $SearchParams{TypeIDs} = $DynamicFieldConfig->{Config}->{TicketType};
         }
     }
